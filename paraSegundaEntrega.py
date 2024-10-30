@@ -120,27 +120,28 @@ def modificarPelicula(movies, id_mapping):
         
     movie_number = input("Ingresa el número de la película a modificar: ")
     if movie_number.isdigit() and int(movie_number) in id_mapping:
-        title = input("Ingresa el nuevo título de la película: ")
-        
-        format_type = input("Ingresa el nuevo formato (2D/3D): ")
-        while format_type.lower() not in ["2d", "3d"]:
-            format_type = input("Error. Ingresa el formato (2D/3D): ")
-            
-        language = input("Ingresa el nuevo idioma (Español/Subtitulado): ")
-        while language.lower() not in ["español", "subtitulado"]:
-            language = input("Error. Ingresa el idioma (Español/Subtitulado): ")
-
         movie_id = id_mapping[int(movie_number)]
-        movies[movie_id] = {
-            'title': title,
-            'format': format_type,
-            'language': language,
-            'schedule': movies[movie_id]['schedule'],
-            'activo': True
-        }
+        movie = movies[movie_id]
+        
+        title = input(f"Ingresa el nuevo título de la película ({movie['title']}): ")
+        if title:  # Si el usuario no ingresa nada, conserva el valor original
+            movie['title'] = title
+
+        format_type = input(f"Ingresa el nuevo formato (2D/3D) ({movie['format']}): ")
+        while format_type and format_type.lower() not in ["2d", "3d"]:
+            format_type = input("Error. Ingresa el formato (2D/3D): ")
+        if format_type:
+            movie['format'] = format_type
+
+        language = input(f"Ingresa el nuevo idioma (Español/Subtitulado) ({movie['language']}): ")
+        while language and language.lower() not in ["español", "subtitulado"]:
+            language = input("Error. Ingresa el idioma (Español/Subtitulado): ")
+        if language:
+            movie['language'] = language
+
         print(f"¡Película '{movie_id}' modificada con éxito!")
     else:
-        print("ID de película no encontrado.")
+        print("Número de película no encontrado.")
         
     return movies
 
@@ -338,6 +339,7 @@ if __name__ == "__main__":
 
 """Se optimizo lineas de codigo del menu principal"""
 """se cambio la cantidad de 0 al generar un id"""
+"""se cambio editar pelicula para saber que pelicula estamos cambiando, falta corregir validacion de campos como estaba en la primera entrega"""
 
 """
 La línea de código id_mapping = {i: k for i, k in enumerate(movies.keys(), 1)} crea un diccionario llamado id_mapping que relaciona números secuenciales con los IDs de las películas almacenadas en el diccionario movies. cómo funciona:
