@@ -315,7 +315,7 @@ if __name__ == "__main__":
 """Se optimizo lineas de codigo del menu principal"""
 """se cambio la cantidad de 0 al generar un id"""
 """se cambio editar pelicula para saber que pelicula estamos cambiando"""
-""" se cambio la funcion generar id, En vez de convertir y formatear el ID cada vez, considera usar solo el número como clave en el diccionario movies y formatearlo solo para mostrarlo. Así reduces el largo de la clave y simplificas la generación de ID."""
+""" se cambio la funcion generar id, En vez de convertir y formatear el ID cada vez, consideramos usar solo el número como clave en el diccionario movies y formatearlo solo para mostrarlo. Así reduces el largo de la clave y simplificas la generación de ID."""
 """ se cambio validacion de horarios, El valor esHorario = True es redundante ya que la función retorna True al final si el horario es válido, así que se elimino y se retorna False directamente en los casos de error."""
 
 
