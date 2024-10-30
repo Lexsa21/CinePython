@@ -22,46 +22,21 @@ Pendientes:
 # FUNCIONES
 #----------------------------------------------------------------------------------------------
 def generarId(movies):
-    """- Función que genera un ID único
-       - Parámetro: 
-            movies (dicc): Diccionario donde se almacenan las películas
-       - Retorno:
-            movie_id (str): ID único para la película """
-            
-    if movies == {}:
-        movie_id = f"{1:04d}"
-        number_id = 1
-    else:
-        ultima_clave = list(movies.keys())[-1]
-        number_id = int(ultima_clave) + 1
-        movie_id = f"{number_id:04d}"
-    
+    """Genera un ID único para una película."""
+    number_id = max(map(int, movies.keys()), default=0) + 1
+    movie_id = f"{number_id:04d}"
     return movie_id, number_id
 
 def esHorario(time):
-    """- Función que valida horarios
-       - Parámetro: 
-            time (str): Horario
-       - Retorno:
-            esHorario (bool): True o False dependiendo si el horario es válido o no """
-    
-    esHorario = True
-    
+    """Valida que el horario tenga el formato HH:MM y sea un horario válido."""
     if len(time) != 5 or time[2] != ":":
         return False
-        
+
     horas, minutos = time.split(":")
-    
     if not (horas.isdigit() and minutos.isdigit()):
         return False
-    
-    horas = int(horas)
-    minutos = int(minutos)
-    
-    if not (0 <= horas < 24 and 0 <= minutos < 60):
-        return False
-    
-    return esHorario
+
+    return 0 <= int(horas) < 24 and 0 <= int(minutos) < 60
 
 def agregarPelicula(movies, id_mapping):
     """- Función que agrega una película al diccionario movies
@@ -339,7 +314,10 @@ if __name__ == "__main__":
 
 """Se optimizo lineas de codigo del menu principal"""
 """se cambio la cantidad de 0 al generar un id"""
-"""se cambio editar pelicula para saber que pelicula estamos cambiando, falta corregir validacion de campos como estaba en la primera entrega"""
+"""se cambio editar pelicula para saber que pelicula estamos cambiando"""
+""" se cambio la funcion generar id, En vez de convertir y formatear el ID cada vez, considera usar solo el número como clave en el diccionario movies y formatearlo solo para mostrarlo. Así reduces el largo de la clave y simplificas la generación de ID."""
+""" se cambio validacion de horarios, El valor esHorario = True es redundante ya que la función retorna True al final si el horario es válido, así que se elimino y se retorna False directamente en los casos de error."""
+
 
 """
 La línea de código id_mapping = {i: k for i, k in enumerate(movies.keys(), 1)} crea un diccionario llamado id_mapping que relaciona números secuenciales con los IDs de las películas almacenadas en el diccionario movies. cómo funciona:
